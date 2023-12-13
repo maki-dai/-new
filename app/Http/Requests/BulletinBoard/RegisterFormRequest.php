@@ -24,18 +24,20 @@ class RegisterFormRequest extends FormRequest
     public function rules()
     {
         // !!正規表現どうにかする！regaxは[]で囲った方がいい！
+        // inを使った選択肢から選ぶバリデーションが必要？
         return [
           'over_name'=>'required|string|max:10',
           'under_name'=>'required|string|max:10',
-          'over_name_kana'=> 'required|string|regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u|max:30',
-          'under_name_kana'=> 'required|string|regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u|max:30',
+          'over_name_kana'=>['required','string','regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u','max:30'],
+          'under_name_kana'=>[ 'required','string','regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u','max:30'],
           'mail_address'=>'required|email|unique:users|max:100',
-          'sex'=>'required|regex:/^[ 男性|女性|その他 ]+$/u',
+          'sex'=>['required','regex:/^[ 男性|女性|その他 ]+$/u'],
+        //   'in:' . implode(',', config('test.TEST_NUMBER_LIST')),
           'old'=>'date',
           'old_year'=>'required_with:old_month,old_day',
           'old_month'=>'required_with:old_year,old_day',
           'old_day'=>'required_with:old_year,old_month',
-          // 'role'=>['required,regex:/^[講師(国語)|講師(数学)|教師(英語)|生徒]+$/u'],
+          'role'=>['required','regex:/^[講師(国語)|講師(数学)|教師(英語)|生徒]+$/u'],
           'password'=>'required|between:8,30|confirmed',
 
  ];

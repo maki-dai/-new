@@ -11,6 +11,8 @@ use App\Models\Posts\PostComment;
 use App\Models\Posts\Like;
 use App\Models\Users\User;
 use App\Http\Requests\BulletinBoard\PostFormRequest;
+use App\Http\Requests\BulletinBoard\PostEditFormRequest;
+use App\Http\Requests\BulletinBoard\PostCommentFormRequest;
 use App\Http\Requests\BulletinBoard\MainCategoryFormRequest;
 use App\Http\Requests\BulletinBoard\SubCategoryFormRequest;
 use Auth;
@@ -20,20 +22,28 @@ use Auth;
 class PostsController extends Controller
 {
     public function show(Request $request){
-        $posts = Post::with('user', 'postComments')->get();
-        $categories = MainCategory::get();
+        $posts = Post::with('user','postComments')->get();
+        $main_categories = MainCategory::get();
+        $sub_categories = SubCategory::with('mainCategory')->get();
         $like = new Like;
         $post_comment = new Post;
         if(!empty($request->keyword)){
-            $posts = Post::with('user', 'postComments','subCategories')
+            $posts = Post::with('user', 'postComments')
             ->where('post_title', 'like', '%'.$request->keyword.'%')
             ->orWhere('post', 'like', '%'.$request->keyword.'%')
             //サブカテゴリ完全一致検索記述
-            // ->orWhere('sub_category',)
+            ->orWhere('sub_category',$request->keyword)
             ->get();
+
+        // サブカテゴリー選んだら同じサブカテゴリに属してるものだけ抽出
         }else if($request->category_word){
-            $sub_category = $request->category_word;
-            $posts = Post::with('user', 'postComments')->get();
+            // $sub_category_id = where('sub_category',$request->category_word)->get('id');
+           $post_id =SubCategory::with('posts')->where('sub_category',$request->category_word)->get('id');
+            $posts = Post::with('user', 'postComments','subCategories')
+            ->whereIn('id', $post_id)->get();
+
+
+
         }else if($request->like_posts){
             $likes = Auth::user()->likePostId()->get('like_post_id');
             $posts = Post::with('user', 'postComments')
@@ -42,7 +52,7 @@ class PostsController extends Controller
             $posts = Post::with('user', 'postComments')
             ->where('user_id', Auth::id())->get();
         }
-        return view('authenticated.bulletinboard.posts', compact('posts', 'categories', 'like', 'post_comment'));
+        return view('authenticated.bulletinboard.posts', compact('posts', 'main_categories','sub_categories', 'like', 'post_comment'));
     }
 
     public function postDetail($post_id){
@@ -77,7 +87,8 @@ class PostsController extends Controller
         return redirect()->route('post.show');
     }
 
-    public function postEdit(PostFormRequest $request){
+    // ここのバリデーションが課題　編集
+    public function postEdit(PostEditFormRequest $request){
         Post::where('id', $request->post_id)->update([
             'post_title' => $request->post_title,
             'post' => $request->post_body,
@@ -89,6 +100,7 @@ class PostsController extends Controller
         Post::findOrFail($id)->delete();
         return redirect()->route('post.show');
     }
+
     // メインカテゴリ
     public function mainCategoryCreate(MainCategoryFormRequest $request){
         MainCategory::create(['main_category' => $request->main_category]);
@@ -104,8 +116,8 @@ class PostsController extends Controller
     }
 
 
-    // コメントバリデーション　フォームリクエスト作らないと
-    public function commentCreate(Request $request){
+    // コメントバリデーション　　確認！
+    public function commentCreate(PostCommentFormRequest $request){
         PostComment::create([
             'post_id' => $request->post_id,
             'user_id' => Auth::id(),

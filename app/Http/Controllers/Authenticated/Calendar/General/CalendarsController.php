@@ -23,7 +23,8 @@ class CalendarsController extends Controller
         try{
             $getPart = $request->getPart;
             $getDate = $request->getData;
-            $reserveDays = array_filter(array_combine($getDate, $getPart));
+            // array combine→mergeに変更
+            $reserveDays = array_filter(array_merge($getDate, $getPart));
             foreach($reserveDays as $key => $value){
                 $reserve_settings = ReserveSettings::where('setting_reserve', $key)->where('setting_part', $value)->first();
                 $reserve_settings->decrement('limit_users');
