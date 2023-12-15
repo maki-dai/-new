@@ -17,7 +17,7 @@
     <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center; background-color:#ECF1F6;">
 
     <div class="login-container" style="width:25%;">
-      <p style="text-align:center;"><img class="logo" src="image/atlas-black.png" style="width:50%;"></p>
+      <p style="text-align:center;"><img class="logo" src="{{asset('image/atlas-black.png') }}" style="width:50%;"></p>
       <div class="border vh-50 " style="background-color:#fff; align-items:center; justify-content:center;box-shadow: 0 0 8px gray;border-radius:10px;">
         <div class="w-75 m-auto pt-5">
           <label class="d-block m-0" style="font-size:13px;"><b>メールアドレス</b></label>

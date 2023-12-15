@@ -38,6 +38,9 @@
       <input type="submit" name="my_posts" class="btn btn-yellow btn category_btn" value="自分の投稿" form="postSearchRequest">
       </div>
 
+      <div class="category-search-area">
+        <p>カテゴリ検索</p>
+        <div class="category-search">
       @foreach($main_categories as $main_category)
         <ul>{{ $main_category->main_category }}
 
@@ -50,6 +53,8 @@
         </ul>
 
     @endforeach
+    </div>
+    </div>
     </div>
   </div>
   <form action="{{ route('post.show') }}" method="get" id="postSearchRequest"></form>

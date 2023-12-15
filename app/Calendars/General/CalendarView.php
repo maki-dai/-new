@@ -66,8 +66,32 @@ class CalendarView{
             // 過去日じゃない予約した日　表示（キャンセルボタン）
           }else{
             // キャンセルボタン
-            $html[] = '<button type="submit" class="btn btn-danger p-0 w-75" name="delete_date" style="font-size:12px" onclick="return confirm(キャンセルしてよろしいですか？)" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
-            $html[] = '<input type="hidden" name="getPart[]" value="" form="deleteParts">';// deletePartsに修正
+            $html[] = '<button type="submit" class="btn btn-danger delete-modal-open p-0 w-75" name="delete_date" style="font-size:12px" value="'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">'. $reservePart .'</button>';
+            $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
+            // モーダル中身
+            $html[] = '<div class="modal js-modal">
+  <div class="modal__bg js-modal-close"></div>
+  <div class="modal__content">
+      <div class="w-100">
+        <div class="modal-inner-date w-50 m-auto">
+予約日：
+<p class="modal_delete_date"></p>
+        </div>
+        <div class="modal-inner-part w-50 m-auto pt-3 pb-3">
+時間：
+<p class="modal_delete_part"></p>
+        </div>
+        <div class="modal-inner-message w-50 m-auto pt-3 pb-3">
+          <p>上記の予約をキャンセルしてもよろしいですか？</p>
+        </div>
+        <div class="w-50 m-auto edit-modal-btn d-flex">
+          <a class="js-modal-close btn btn-primary d-inline-block" href="">閉じる</a>
+          <input type="hidden" class="delete-modal-hidden" name="getPart[]" value="">
+          <input type="hidden" class="delete-modal-hidden" name="getDate[]" value="">
+          <input type="submit" class="btn btn-danger d-block" value="キャンセル" form="deleteParts">
+        </div>
+      </div>
+  </div>';
           }
           // 予約してない日
         }else{
@@ -76,6 +100,7 @@ class CalendarView{
           // // 予約してない過去日
           if($startDay <= $day->everyDay() && $toDay >= $day->everyDay()){
           $html[] = '<p class="m-auto p-0 w-75" style="font-size:12px">受付終了</p>';
+          $html[] = '<input type="hidden" name="getPart[]" value="" form="reserveParts">';
           // 予約してない未来日　選択表示
           }else{
           $html[] = $day->selectPart($day->everyDay());

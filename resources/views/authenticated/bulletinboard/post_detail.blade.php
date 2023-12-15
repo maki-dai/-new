@@ -6,8 +6,6 @@
 
       <div class="p-3">
         <div class="detail_inner_head">
-          <div>
-          </div>
 
           <!-- エラーメッセージ -->
       <div>

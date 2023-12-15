@@ -31,13 +31,13 @@ class RegisterFormRequest extends FormRequest
           'over_name_kana'=>['required','string','regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u','max:30'],
           'under_name_kana'=>[ 'required','string','regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u','max:30'],
           'mail_address'=>'required|email|unique:users|max:100',
-          'sex'=>['required','regex:/^[ 男性|女性|その他 ]+$/u'],
+          'sex'=>['required','in:1,2,3'],
         //   'in:' . implode(',', config('test.TEST_NUMBER_LIST')),
           'old'=>'date',
           'old_year'=>'required_with:old_month,old_day',
           'old_month'=>'required_with:old_year,old_day',
           'old_day'=>'required_with:old_year,old_month',
-          'role'=>['required','regex:/^[講師(国語)|講師(数学)|教師(英語)|生徒]+$/u'],
+          'role'=>['required','in:1,2,3,4'],
           'password'=>'required|between:8,30|confirmed',
 
  ];
@@ -73,7 +73,7 @@ class RegisterFormRequest extends FormRequest
            'mail_address.max'=>'メールアドレスは100文字以内で入力してください。',
 
            'sex.required'=>'性別が未選択です。',
-           'sex.regex'=>'性別は男性か女性かその他のみ選択可能です。',
+           'sex.in'=>'性別は選択肢の中から選択してください。',
 
         //      'old'=>'date',
         //   'old_year'=>'required_with:old_month,old_day',
@@ -86,7 +86,7 @@ class RegisterFormRequest extends FormRequest
 
 
            'role.required'=>'権限は選択必須です',
-           'role.regex'=>'権限は講師(国語)、講師(数学)、教師(英語)、生徒のいずれかから選択してください。',
+           'role.in'=>'役職は選択肢の中から選択してください。',
 
            'password.required'=>'パスワードは入力必須です。',
            'password.between'=>'パスワードは8文字から30文字の間で入力してください。',

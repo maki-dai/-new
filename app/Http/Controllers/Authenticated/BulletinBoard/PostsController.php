@@ -18,31 +18,56 @@ use App\Http\Requests\BulletinBoard\SubCategoryFormRequest;
 use Auth;
 
 
-
 class PostsController extends Controller
 {
     public function show(Request $request){
-        $posts = Post::with('user','postComments')->get();
+        $posts = Post::with('user','postComments','subCategories')->get();
         $main_categories = MainCategory::get();
         $sub_categories = SubCategory::with('mainCategory')->get();
         $like = new Like;
         $post_comment = new Post;
         if(!empty($request->keyword)){
-            $posts = Post::with('user', 'postComments')
+
+            $sub_search_word =$request->keyword;
+            $sub_category_word = Subcategory::where('sub_category',$sub_search_word)->pluck('sub_category');
+            $sub_search_id = SubCategory::where('sub_category',$sub_search_word)->pluck('id');
+
+            $posts = Post::with('user', 'postComments','subCategories')
             ->where('post_title', 'like', '%'.$request->keyword.'%')
             ->orWhere('post', 'like', '%'.$request->keyword.'%')
-            //サブカテゴリ完全一致検索記述
-            ->orWhere('sub_category',$request->keyword)
             ->get();
+
+            // →ここだけ！！$sub_category_wordに入らない！直接指定すると問題ない
+            if($sub_search_word == $sub_category_word){
+            $posts = Post::with('user', 'postComments','subCategories')
+            ->orWhereHas('subCategories', function($q) use ($sub_search_id){
+                $q->where('post_sub_categories.sub_category_id',$sub_search_id);
+            })->get();
+            // ->get();
+            // if文で一致するときのみが必要そう！
+
+
+        //
+
+            }
+// dd($sub_search_word,$sub_category_word);
+             //サブカテゴリ完全一致検索記述 機能はOK
+            // (検索ワードがサブカテゴリと完全一致のとき、サブカテゴリテーブルから一致するレコードのidを取得)
+            // （取得したidをwhereHasで中間テーブルから一致する情報抽出→Postからゲット）
+
+
 
         // サブカテゴリー選んだら同じサブカテゴリに属してるものだけ抽出
         }else if($request->category_word){
-            // $sub_category_id = where('sub_category',$request->category_word)->get('id');
-           $post_id =SubCategory::with('posts')->where('sub_category',$request->category_word)->get('id');
-            $posts = Post::with('user', 'postComments','subCategories')
-            ->whereIn('id', $post_id)->get();
-
-
+             $sub_category = $request->category_word;
+             $sub_category_id = SubCategory::where('sub_category',$sub_category)->pluck('id');
+             $posts = Post::with('subCategories')
+             ->whereHas('subCategories', function($q) use ($sub_category_id){
+                $q->where('post_sub_categories.sub_category_id',$sub_category_id);
+            })->get();
+// dd($sub_category_id);
+             //  $sub_category_posts = Post::with('subCategory')->whereIn('id',$sub_category_id)->get();
+            // $posts = Post::with('user', 'postComments')->get();
 
         }else if($request->like_posts){
             $likes = Auth::user()->likePostId()->get('like_post_id');
