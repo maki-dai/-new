@@ -119,6 +119,8 @@
             <option value="2008">2008</option>
             <option value="2009">2009</option>
             <option value="2010">2010</option>
+            <!-- 確認用 -->
+            <option value="2010">2024</option>
           </select>
 
           <label style="font-size:13px">年</label>
@@ -221,7 +223,8 @@
 
         </div>
         <div class="mt-5 text-right">
-          <input type="submit" class="btn btn-primary register_btn" disabled value="新規登録" onclick="return confirm('登録してよろしいですか？')">
+          <!-- 確認用　disabledをvalueの前に追加とregister修正 -->
+          <input type="submit" class="btn btn-primary regiser_btn"  value="新規登録" onclick="return confirm('登録してよろしいですか？')">
         </div>
         <div class="text-center">
           <a href="{{ route('loginView') }}">ログインはこちら</a>

@@ -36,6 +36,7 @@ class CalendarView{
     foreach($weeks as $week){
       $html[] = '<tr class="'.$week->getClassName().'">';
       $days = $week->getDays();
+
       foreach($days as $day){
         $startDay = $this->carbon->format("Y-m-01");
         $toDay = $this->carbon->format("Y-m-d");
@@ -46,8 +47,10 @@ class CalendarView{
         }
         $html[] = $day->render();
         $html[] = $day->dayPartCounts($day->everyDay());
+
         $html[] = '</td>';
       }
+
       $html[] = '</tr>';
     }
     $html[] = '</tbody>';

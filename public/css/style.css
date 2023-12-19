@@ -362,3 +362,17 @@ li {
 .subject_inner {
   display: none;
 }
+
+
+/* カレンダー */
+.modal-text {
+  color: black;
+}
+
+.modal-inner-part {
+  display: flex;
+}
+
+.modal-inner-date {
+  display: flex;
+}

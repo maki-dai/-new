@@ -3,6 +3,7 @@
 namespace App\Http\Requests\BulletinBoard;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Carbon\Carbon;
 
 class RegisterFormRequest extends FormRequest
 {
@@ -32,13 +33,10 @@ class RegisterFormRequest extends FormRequest
           'under_name_kana'=>[ 'required','string','regex:/^[ア-ン゛゜ァ-ォャ-ョー]+$/u','max:30'],
           'mail_address'=>'required|email|unique:users|max:100',
           'sex'=>['required','in:1,2,3'],
-        //   'in:' . implode(',', config('test.TEST_NUMBER_LIST')),
-          'old'=>'required|date|after_or_equal:2000-01-01',
-        //   'old_year'=>'required',
-        //   'old_month'=>'required|between:1,12',
-        //   'old_day'=>'required|between:1,31',
-        //   生年月日まとめる
-        //   'old_year_month_day'=>'required|date|after_or_equal:2000-01-01',
+        // 今日の指定ができない。。
+          'old'=>'required|date|before_or_equal:2023-12-19|after_or_equal:2000-01-01',
+            // Rule::notIn([Carbon::createFromDate(2000, 1, 1)->format('Y-m-d'), Carbon::today()->addDay()->format('Y-m-d')]),
+
           'role'=>['required','in:1,2,3,4'],
           'password'=>'required|between:8,30|confirmed',
 
@@ -126,7 +124,8 @@ class RegisterFormRequest extends FormRequest
 
            'old.required'=>'生年月日が未入力です。',
            'old.date'=>'生年月日は正しい日付で入力してください。',
-           'old.after_or_equal'=>'生年月日は2000年1月1日以降で入力してください。',
+           'old.after_or_equal'=>'生年月日は2000年1月1日から今日までの日付で入力してください。',
+           'old.before_or_equal'=>'生年月日は2000年1月1日から今日までの日付で入力してください。',
 
 
 
