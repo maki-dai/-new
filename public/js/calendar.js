@@ -7,6 +7,8 @@ $(function () {
 
     $('.modal_delete_date').text(getDate);
     $('.modal_delete_part').text(getPart);
+    $('.delete-modal-hidden').val(getDate);
+    $('.delete-modal-hidden').val(getPart);
     return false;
   });
   $('.js-modal-close').on('click', function () {

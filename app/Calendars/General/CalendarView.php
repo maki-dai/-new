@@ -88,8 +88,8 @@ class CalendarView{
         </div>
         <div class="w-50 m-auto edit-modal-btn d-flex">
           <a class="js-modal-close btn btn-primary d-inline-block" href="">閉じる</a>
-          <input type="hidden" class="delete-modal-hidden" name="getPart" value="'. $reservePart .'">
-          <input type="hidden" class="delete-modal-hidden" name="getDate" value="{'. $day->authReserveDate($day->everyDay())->first()->setting_reserve .'">
+          <input type="hidden" class="delete-modal-hidden" name="getPart" value="">
+          <input type="hidden" class="delete-modal-hidden" name="getDate" value="">
           <input type="submit" class="btn btn-danger d-block" value="キャンセル" form="deleteParts">
         </div>
       </div>

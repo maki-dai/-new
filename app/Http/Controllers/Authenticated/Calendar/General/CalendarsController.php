@@ -41,6 +41,7 @@ class CalendarsController extends Controller
          $getPart = $request->getPart;
          $getDate = $request->getDate;
 
+         dd($getPart,$getDate);
         $reserve_settings = ReserveSettings::where('setting_reserve', $getDate)->where('setting_part', $getPart)->first();
         $reserve_settings->increment('limit_users');
         $reserve_settings->users()->detach(Auth::id());

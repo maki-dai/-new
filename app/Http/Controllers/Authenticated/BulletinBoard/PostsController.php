@@ -46,9 +46,9 @@ class PostsController extends Controller
             ->where('post_title', 'like', '%'.$request->keyword.'%')
             ->orWhere('post', 'like', '%'.$request->keyword.'%')
             ->get();
-
+// dd($sub_category_word);
             // →ここだけ！！$sub_category_wordに入らない！直接指定すると問題ない
-            if($sub_search_word == $sub_category_word){
+            if($sub_category_word->count() > 0){
             $posts = Post::with('user', 'postComments','subCategories')
             ->orWhereHas('subCategories', function($q) use ($sub_search_id){
                 $q->where('post_sub_categories.sub_category_id',$sub_search_id);
