@@ -63,14 +63,14 @@
         <input type="text" class="free_word" name="keyword" placeholder="キーワードを検索" form="userSearchRequest">
       </div>
       <div>
-        <label>カテゴリ</label>
+        <label>カテゴリ</label><br>
         <select form="userSearchRequest" name="category">
           <option value="name">名前</option>
           <option value="id">社員ID</option>
         </select>
       </div>
       <div>
-        <label>並び替え</label>
+        <label>並び替え</label><br>
         <select name="updown" form="userSearchRequest">
           <option value="ASC">昇順</option>
           <option value="DESC">降順</option>
@@ -109,10 +109,10 @@
         </div>
       </div>
       <div>
-        <input type="reset" value="リセット" form="userSearchRequest">
-      </div>
-      <div>
         <input type="submit" class="btn btn-info search_btn" name="search_btn" value="検索" form="userSearchRequest">
+      </div>
+       <div>
+        <input type="reset" value="リセット" form="userSearchRequest">
       </div>
     </div>
     <form action="{{ route('user.show') }}" method="get" id="userSearchRequest"></form>

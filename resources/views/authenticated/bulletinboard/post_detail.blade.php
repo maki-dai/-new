@@ -16,16 +16,22 @@
       <span class="error_message">{{ $errors->first('post_body') }}</span>
       @endif
      </div>
+     <div class="post-detail-container">
        <!-- 自分の投稿にのみ表示 編集削除ボタン -->
         @if($post->user->id == Auth::user()->id)
+         <div>
+           @foreach($post->subCategories as $sub_category)
+            <p class="post-subcategory">{{   $sub_category->sub_category }}</p>
+           @endforeach
+          </div>
           <div class="edit_delete_button">
-            <span class="edit-modal-open" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
-            <a href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('削除してよろしいでしょうか？')">削除</a>
+            <span class="edit-modal-open btn btn-primary" post_title="{{ $post->post_title }}" post_body="{{ $post->post }}" post_id="{{ $post->id }}">編集</span>
+            <a  class="btn btn-danger" href="{{ route('post.delete', ['id' => $post->id]) }}" onclick="return confirm('削除してよろしいでしょうか？')">削除</a>
           </div>
           @endif
           <!-- if -->
         </div>
-
+       </div>
         <div class="contributor d-flex">
           <p>
             <span>{{ $post->user->over_name }}</span>
@@ -34,8 +40,8 @@
           </p>
           <span class="ml-5">{{ $post->created_at }}</span>
         </div>
-        <div class="detsail_post_title">{{ $post->post_title }}</div>
-        <div class="mt-3 detsail_post">{{ $post->post }}</div>
+        <div class="detail_post_title">{{ $post->post_title }}</div>
+        <div class="mt-3 detail_post">{{ $post->post }}</div>
       </div>
       <div class="p-3">
         <div class="comment_container">
@@ -65,7 +71,9 @@
 
         <textarea class="w-100" name="comment" form="commentRequest"></textarea>
         <input type="hidden" name="post_id" form="commentRequest" value="{{ $post->id }}">
-        <input type="submit" class="btn btn-primary" form="commentRequest" value="投稿">
+
+        <p style="text-align:right; margin-bottom:0
+;"><input type="submit" class="btn btn-primary" form="commentRequest" value="投稿" style=""></p>
         <form action="{{ route('comment.create') }}" method="post" id="commentRequest">{{ csrf_field() }}</form>
       </div>
     </div>

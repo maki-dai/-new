@@ -21,11 +21,21 @@ use Auth;
 class PostsController extends Controller
 {
     public function show(Request $request){
+        // サブカテゴリも取得できるように記述変更必要↓
         $posts = Post::with('user','postComments','subCategories')->get();
+
         $main_categories = MainCategory::get();
         $sub_categories = SubCategory::with('mainCategory')->get();
+
+        // $post_id = $posts->id;
+        // // $post_sub_category =SubCategory::find($post_id);
+        // $post_sub_categories = Post::with('subCategories')
+        //      ->whereHas('subCategories', function($q) use ($post_id){
+        //         $q->where('post_sub_categories.post_id',$post_id);
+        //     })->get();
         $like = new Like;
         $post_comment = new Post;
+
         if(!empty($request->keyword)){
 
             $sub_search_word =$request->keyword;
@@ -45,16 +55,11 @@ class PostsController extends Controller
             })->get();
             // ->get();
             // if文で一致するときのみが必要そう！
-
-
-        //
-
             }
 // dd($sub_search_word,$sub_category_word);
              //サブカテゴリ完全一致検索記述 機能はOK
             // (検索ワードがサブカテゴリと完全一致のとき、サブカテゴリテーブルから一致するレコードのidを取得)
             // （取得したidをwhereHasで中間テーブルから一致する情報抽出→Postからゲット）
-
 
 
         // サブカテゴリー選んだら同じサブカテゴリに属してるものだけ抽出

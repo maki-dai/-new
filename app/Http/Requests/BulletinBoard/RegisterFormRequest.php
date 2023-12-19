@@ -33,15 +33,51 @@ class RegisterFormRequest extends FormRequest
           'mail_address'=>'required|email|unique:users|max:100',
           'sex'=>['required','in:1,2,3'],
         //   'in:' . implode(',', config('test.TEST_NUMBER_LIST')),
-          'old'=>'date',
-          'old_year'=>'required_with:old_month,old_day',
-          'old_month'=>'required_with:old_year,old_day',
-          'old_day'=>'required_with:old_year,old_month',
+          'old'=>'required|date|after_or_equal:2000-01-01',
+        //   'old_year'=>'required',
+        //   'old_month'=>'required|between:1,12',
+        //   'old_day'=>'required|between:1,31',
+        //   生年月日まとめる
+        //   'old_year_month_day'=>'required|date|after_or_equal:2000-01-01',
           'role'=>['required','in:1,2,3,4'],
           'password'=>'required|between:8,30|confirmed',
 
  ];
     }
+
+     protected function prepareForValidation()
+    {
+        $data = [];
+        $data['old'] = sprintf('%04d-%02d-%02d', $this->old_year, $this->old_month, $this->old_day);
+        // if ($data['old'] == '0000-00-00') $data['old'] = null;
+
+        $this->merge($data);
+    }
+//   protected $rules = [
+//         'birthday_year' => 'required|integer|date_format:Y',
+//         'birthday_month' => 'required|between:1,12',
+//         'birthday_day' => 'required|between:1,31',
+//     ];
+
+    // protected function withValidator($validator): void
+    // {
+    //     $validator->after(function ($validator) {
+    //         if (!checkdate($this->input('old_month'), $this->input('old_day'), $this->input('old_year'))) {
+    //             $validator->errors()->add('old_year_month_day', '正しい日付を入力してください');
+    //         }
+    //     });
+    // }
+// }
+
+    //     protected function prepareForValidation()
+    // {
+    //     $year_month_day = ($this->filled(['old_year', 'old_month','old_day'])) ? $this->old_year .'-'. $this->old_month .'-'. $this->old_date : '';
+    //     $this->merge([
+    //        'old_year_month_day'=> $year_month_day
+    //     ]);
+    // }
+
+
 
 
 
@@ -79,10 +115,19 @@ class RegisterFormRequest extends FormRequest
         //   'old_year'=>'required_with:old_month,old_day',
         //   'old_month'=>'required_with:old_year,old_day',
         //   'old_day'=>'required_with:old_year,old_month',
+        //    'old.date'=>'生年月日は正しい日付で入力してください。',
+        //    'old_year.required'=>'生年月日が未入力です。',
+        //    'old_month.required'=>'生年月日が未入力です。',
+        //    'old_day.required'=>'生年月日が未入力です。',
+        //    'old_year_month_day'=>'date|after_or_equal:
+        //    'old_year_month_day.required'=>'生年月日が未入力です。',
+        //    'old_year_month_day.date'=>'生年月日は正しい日付で入力してください。',
+        //    'old_year_month_day.after_or_equal'=>'生年月日は2000年1月1日以降で入力してください。',
+
+           'old.required'=>'生年月日が未入力です。',
            'old.date'=>'生年月日は正しい日付で入力してください。',
-           'old_year.required'=>'生年月日が未入力です。',
-           'old_month.required'=>'生年月日が未入力です。',
-           'old_day.required'=>'生年月日が未入力です。',
+           'old.after_or_equal'=>'生年月日は2000年1月1日以降で入力してください。',
+
 
 
            'role.required'=>'権限は選択必須です',
