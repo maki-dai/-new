@@ -31,19 +31,25 @@ class CalendarWeekDay{
 
     $html[] = '<div class="text-left">';
     if($one_part){
-      $html[] = '<p class="day_part m-0 pt-1">1部</p>';
+      $html[] = '<p class="day_part m-0 pt-1">';
+      $html[] = '<a href="{{ route("calendar.admin.detail", ["date"=> $date-> ],["part"=> $part-> ]) }}">1部</a>';
+      $html[] =  '</p>';
     }
     if($two_part){
-      $html[] = '<p class="day_part m-0 pt-1">2部</p>';
+      $html[] = '<p class="day_part m-0 pt-1">';
+      // $html[] = '<a href="{{ route("calendar.admin.detail", ["date"=> ,"part"=> ]) }}">2部</a>';
+      $html[] =  '</p>';
     }
     if($three_part){
-      $html[] = '<p class="day_part m-0 pt-1">3部</p>';
+      $html[] = '<p class="day_part m-0 pt-1">';
+      // $html[] = '<a href="{{ route("calendar.admin.detail", ["date"=> ,"part"=> ]) }}">3部</a>';
+      $html[] =  '</p>';
     }
     $html[] = '</div>';
 
     return implode("", $html);
   }
-
+// （'calendar.admin.detail'）
 
   function onePartFrame($day){
     $one_part_frame = ReserveSettings::where('setting_reserve', $day)->where('setting_part', '1')->first();

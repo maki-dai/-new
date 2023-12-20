@@ -315,6 +315,10 @@ li {
 }
 
 /* ユーザー検索 */
+.search_content {
+  height: 100vh;
+}
+
 .reserve_users_area {
   display: flex;
   flex-wrap: wrap;
@@ -350,7 +354,7 @@ li {
 
 .search_conditions_inner {
   display: none;
-  background: #FFF;
+  /* background: #FFF; */
 }
 
 .subject_edit_btn {
@@ -363,6 +367,126 @@ li {
   display: none;
 }
 
+/* ユーザー詳細 */
+/* 選択科目アコーディオンメニュー */
+/* 矢印 */
+.subject_edit_btn {
+  position: relative;
+  color: #33CCFF;
+}
+
+.subject_edit_btn::after {
+  border-right: solid 2px #33CCFF;
+  border-top: solid 2px #33CCFF;
+  content: "";
+  display: block;
+  height: 8px;
+  position: absolute;
+  left: 90px;
+  top: 25%;
+  transform: rotate(135deg);
+  transition: transform .3s ease-in-out, top .3s ease-in-out;
+  width: 8px;
+}
+
+.subject_edit_btn.open::after {
+  top: 45%;
+  transform: rotate(-45deg);
+}
+
+/* 検索条件の追加のアコーディオン */
+.search_conditions {
+  position: relative;
+  color: black;
+  cursor: pointer;
+  padding-bottom: 5px;
+  border-bottom: solid thin black;
+}
+
+.search_conditions::after {
+  border-right: solid 2px black;
+  border-top: solid 2px black;
+  content: "";
+  display: block;
+  height: 8px;
+  position: absolute;
+  /* left: 90px; */
+  right: 10px;
+  top: 25%;
+  transform: rotate(135deg);
+  transition: transform .3s ease-in-out, top .3s ease-in-out;
+  width: 8px;
+}
+
+.search_conditions.open::after {
+  top: 45%;
+  transform: rotate(-45deg);
+}
+
+.select-subjects {
+  display: flex;
+}
+
+.search-condition-part {
+  padding: 10px
+}
+
+.search-condition-part p {
+  color: navy;
+}
+
+.search-condition-part label {
+  color: navy;
+}
+
+
+
+/* .search-condition-button {
+  width: 100%;
+} */
+
+.search_btn {
+  width: 80%;
+  height: 50px;
+  margin-left: 10px;
+  border-radius: 10px !important;
+  background-color: #03AAD2 !important;
+}
+
+.reset_btn {
+  border: none;
+  color: #17a2b8;
+  width: 80%;
+  margin: 20px 0 0 10px;
+  cursor: pointer;
+}
+
+.search-area-box {
+  border-radius: 10px;
+  background: #dcdcdc;
+  border: none;
+  /* height: 40px; */
+  padding-left: 10px;
+}
+
+.area-box2 {
+  width: 80px;
+  height: 30px;
+  font-size: 15px;
+}
+
+.area-box3 {
+  /* width: 80px; */
+  height: 30px;
+  font-size: 15px;
+}
+
+.free_word {
+  /* margin-left: 10px; */
+  width: 100%;
+  height: 50px;
+  font-size: 15px;
+}
 
 /* カレンダー */
 .modal-text {
