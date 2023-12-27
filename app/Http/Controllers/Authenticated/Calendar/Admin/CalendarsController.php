@@ -9,6 +9,7 @@ use App\Calendars\Admin\CalendarSettingView;
 use App\Models\Calendars\ReserveSettings;
 use App\Models\Calendars\Calendar;
 use App\Models\Users\User;
+use Carbon\Carbon;
 use Auth;
 use DB;
 
@@ -20,9 +21,19 @@ class CalendarsController extends Controller
     }
 
     public function reserveDetail($date, $part){
+        // dd($part);
         $reservePersons = ReserveSettings::with('users')->where('setting_reserve', $date)->where('setting_part', $part)->get();
-        return view('authenticated.calendar.admin.reserve_detail', compact('reservePersons', 'date', 'part'));
+        // dd($reservePersons);
+        // $users = User::with('reserveSettings')-
+        $date = Carbon::createFromFormat('Y-m-d', $date);
+        $formatted_date = $date->format('Y年m月d日');
+        return view('authenticated.calendar.admin.reserve_detail', compact('reservePersons','formatted_date', 'part'));
     }
+//  $posts = Post::with('user', 'postComments','subCategories')
+//             ->orWhereHas('subCategories', function($q) use ($sub_search_id){
+//                 $q->where('post_sub_categories.sub_category_id',$sub_search_id);
+//             })->get();
+
 
     public function reserveSettings(){
         $calendar = new CalendarSettingView(time());

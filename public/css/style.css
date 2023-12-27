@@ -500,3 +500,38 @@ li {
 .modal-inner-date {
   display: flex;
 }
+
+/* 予約詳細画面 */
+.table-category {
+  background: #03AAD2;
+  color: #fff;
+}
+
+.table-content {
+  padding: 5px;
+  font-size: 20px;
+}
+
+.table-content:nth-child(even) {
+  background: #fff;
+}
+
+.table-content:nth-child(odd) {
+  background: #add8e6;
+}
+
+.table-content td {
+  padding: 5px
+}
+
+.t-id {
+  width: ;
+}
+
+.t-name {
+  width: 30%;
+}
+
+.t-place {
+  width: 50%;
+}
