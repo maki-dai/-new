@@ -107,6 +107,8 @@ li {
 .day_part {
   color: #494949;
   font-size: 12px;
+  display: flex;
+  justify-content: space-around;
 }
 
 .adjust-table {
@@ -500,6 +502,8 @@ li {
 .modal-inner-date {
   display: flex;
 }
+
+
 
 /* 予約詳細画面 */
 .table-category {

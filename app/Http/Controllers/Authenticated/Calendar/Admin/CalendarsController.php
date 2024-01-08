@@ -17,6 +17,7 @@ class CalendarsController extends Controller
 {
     public function show(){
         $calendar = new CalendarView(time());
+        // $count = User::find()->reserveSettings()->withCount('reserve_setting_users')->get() ?? 0;
         return view('authenticated.calendar.admin.calendar', compact('calendar'));
     }
 
