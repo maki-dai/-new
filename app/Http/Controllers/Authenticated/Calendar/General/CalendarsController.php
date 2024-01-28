@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Calendars\General\CalendarView;
 use App\Models\Calendars\ReserveSettings;
 use App\Models\Calendars\Calendar;
-use App\Models\USers\User;
+use App\Models\Users\User;
 use Auth;
 use DB;
 
@@ -38,11 +38,20 @@ class CalendarsController extends Controller
     }
 
     public function delete(Request $request){
-         $getPart = $request->getPart;
-         $getDate = $request->getDate;
+         $getPart = $request->delete_part;
+         $getDate = $request->delete_date;
+         if($getPart == "リモ1部"){
+            $delete_part = 1;
+          }else if($getPart == "リモ2部"){
+            $delete_part = 2;
+          }else if($getPart == "リモ3部"){
+            $delete_part = 3;
+          }
 
-         dd($getPart,$getDate);
-        $reserve_settings = ReserveSettings::where('setting_reserve', $getDate)->where('setting_part', $getPart)->first();
+
+        //  dd($getPart,$getDate);
+        $reserve_settings = ReserveSettings::where('setting_reserve', $getDate)->where('setting_part', $delete_part)->first();
+        // dd($reserve_settings);
         $reserve_settings->increment('limit_users');
         $reserve_settings->users()->detach(Auth::id());
 
