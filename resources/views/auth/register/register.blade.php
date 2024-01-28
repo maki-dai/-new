@@ -200,7 +200,7 @@
           @foreach($subjects as $subject)
           <div class="">
             <input type="checkbox" name="subject[]" value="{{ $subject->id }}">
-            <label>{{ $subject->subject }}</label>
+            <label style="font-size:13px">{{ $subject->subject }}</label>
           </div>
           @endforeach
         </div>

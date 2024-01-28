@@ -549,6 +549,7 @@ li {
   border-bottom: solid #cccccc;
 }
 
+/* Λボタン */
 .category_conditions::after {
   border-right: solid 2px black;
   border-top: solid 2px black;
@@ -562,22 +563,42 @@ li {
   transform: rotate(135deg);
   transition: transform .3s ease-in-out, top .3s ease-in-out;
   width: 8px;
+  cursor: pointer;
 }
 
-.category_conditions.open::after {
+.category_conditions.active::after {
   top: 45%;
   transform: rotate(-45deg);
+  cursor: pointer;
 }
 
-.category_conditions_inner {
+.sub-category {
   display: none;
-  /* background: #FFF; */
+  position: relative;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
 }
 
-.category_conditions_inner li {
+.sub-category.active {
+  display: block;
+  position: relative;
+  opacity: 1;
+}
+
+/*
+.category_conditions.open {
+  display: block;
+  height: auto;
+} */
+
+.sub-category li {
   border-bottom: solid thin;
   width: 80%;
   margin: 10%;
+}
+
+.sub-category input {
+  cursor: pointer;
 }
 
 .sub_category_btn {

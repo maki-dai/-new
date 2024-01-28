@@ -65,25 +65,6 @@ $(function () {
 
 });
 
-$(function () {
-  $('.category_conditions').click(function () {
-    $('.category_conditions_inner').slideToggle();
-    $(this).toggleClass("open");
-  });
-
-});
-
-const mainCategories = document.querySelectorAll('main-category');
-
-mainCategories.forEach((mainCategory) => {
-  const subCategory = mainCategory.querySelector('.sub-category');
-  const subCategoryHeight = subCategory.scrollHeight;
-
-  mainCategory.addEventListener('click', () => {
-    if (subCategory.style.height === '0px') {
-      subCategory.style.height = `${subCategoryHeight}px`;
-    } else {
-      subCategory.style.height = '0px';
-    }
-  });
+$(document).on('click', '.main-category-box', function () {
+  $(this).find('.category').toggleClass('active');
 });

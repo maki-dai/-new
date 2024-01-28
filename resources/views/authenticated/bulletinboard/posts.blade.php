@@ -50,27 +50,32 @@
       </div>
 
       <div class="category-search-area">
-        <p style="font-size: 14px;">カテゴリ検索</p>
+         <p style="font-size: 14px;">カテゴリ検索</p>
         <div class="category-search">
-      @foreach($main_categories as $main_category)
-        <p class="category_conditions main-category">
-          <span>{{ $main_category->main_category }}</span>
-          <span class="category_conditions_inner"></span>
 
-        <!-- メインカテゴリと一致するサブカテゴリを表示 -->
-       @foreach($sub_categories as $sub_category)
-         @if($sub_category->main_category_id == $main_category->id)
-        <ul class="category_conditions_inner">
-          <li><input type="submit" name="category_word" class="sub_category_btn" value="{{$sub_category->sub_category}}" form="postSearchRequest">
-          </li>
-        </ul>
-          @endif
-       @endforeach
-        </p>
 
-    @endforeach
-    </div>
-    </div>
+             @foreach($main_categories as $main_category)
+             <div class="main-category-box">
+                  <p class="category_conditions category"><span>{{ $main_category->main_category }}</span></p>
+                      <!-- メインカテゴリと一致するサブカテゴリを表示 -->
+
+               <ul class="sub-category category">
+                  @foreach($sub_categories as $sub_category)
+                       @if($main_category->id  == $sub_category->main_category_id)
+
+                    <li><input type="submit" name="category_word" class="sub_category_btn" value="{{$sub_category->sub_category}}" form="postSearchRequest">
+                    </li>
+
+                  @endif
+
+               @endforeach
+              </ul>
+                 </div>
+            @endforeach
+
+
+        </div>
+      </div>
     </div>
   </div>
   <form action="{{ route('post.show') }}" method="get" id="postSearchRequest"></form>
