@@ -34,7 +34,7 @@ class RegisterFormRequest extends FormRequest
           'mail_address'=>'required|email|unique:users|max:100',
           'sex'=>['required','in:1,2,3'],
         // 今日の指定ができない。。
-          'old'=>'required|date|between:1999-12-31,today|',
+          'old'=>'required|date|before:today|after:1999-12-31',
             // Rule::notIn([Carbon::createFromDate(2000, 1, 1)->format('Y-m-d'), Carbon::today()->addDay()->format('Y-m-d')]),
 
           'role'=>['required','in:1,2,3,4'],
@@ -124,8 +124,9 @@ class RegisterFormRequest extends FormRequest
 
            'old.required'=>'生年月日が未入力です。',
            'old.date'=>'生年月日は正しい日付で入力してください。',
-           'old.between'=>'生年月日は2000年1月1日から今日までの日付で入力してください。',
-        //    'old.before'=>'生年月日は2000年1月1日から今日までの日付で入力してください。',
+           'old.after'=>'生年月日は2000年1月1日から今日までの日付で入力してください。',
+           'old.before'=>'生年月日は2000年1月1日から今日までの日付で入力してください。',
+
 
 
            'role.required'=>'権限は選択必須です',
