@@ -120,7 +120,7 @@
             <option value="2009">2009</option>
             <option value="2010">2010</option>
             <!-- 確認用 -->
-            <option value="2024">2024</option>
+            <!-- <option value="2024">2024</option> -->
           </select>
 
           <label style="font-size:13px">年</label>
@@ -200,7 +200,7 @@
           @foreach($subjects as $subject)
           <div class="">
             <input type="checkbox" name="subject[]" value="{{ $subject->id }}">
-            <label>{{ $subject->subject }}</label>
+            <label style="font-size:13px">{{ $subject->subject }}</label>
           </div>
           @endforeach
         </div>
