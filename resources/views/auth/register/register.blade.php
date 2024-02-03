@@ -13,20 +13,21 @@
   <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 </head>
 <body>
-  <form action="{{ route('registerPost') }}" method="POST">
-    <div class="w-100 vh-100 d-flex" style="align-items:center; justify-content:center; background-color:#ECF1F6;">
-      <div class=" vh-75 border p-3" style="background-color:#fff; align-items:center; justify-content:center;box-shadow: 0 0 8px gray;border-radius:10px;">
+
+    <div class="w-100 vh-100 d-flex" style="justify-content:center; background-color:#ECF1F6;box-sizing:border-box;align-items:center;padding-block:20px;overflow:scroll">
+      <div class="border p-3 h-auto register-content" style="background-color:#fff; align-items:center; justify-content:center;box-shadow: 0 0 8px gray;border-radius:10px;margin-block:auto">
+      <form action="{{ route('registerPost') }}" method="POST">
 
         <b>
           <div class="register_form">
           <div class="d-flex mt-3" style="justify-content:space-between">
-            <div class="" style="width:140px">
+            <div class="" >
  @if($errors->first('over_name'))
       <span class="error_message">{{ $errors->first('over_name') }}</span>
       @endif
               <label class="d-block m-0" style="font-size:13px">姓</label>
               <div class="border-bottom border-primary" style="width:140px;">
-                <input type="text" style="width:140px;" class="border-0 over_name" name="over_name">
+                <input type="text"  class="border-0 over_name" name="over_name">
               </div>
 
             </div>
@@ -224,15 +225,17 @@
         </div>
         <div class="mt-5 text-right">
           <!-- 確認用　disabledをvalueの前に追加とregister修正 -->
-          <input type="submit" class="btn btn-primary regiser_btn"  value="新規登録" onclick="return confirm('登録してよろしいですか？')">
+          <input type="submit" class="btn btn-primary register_btn" disabled value="新規登録" onclick="return confirm('登録してよろしいですか？')">
         </div>
         <div class="text-center">
           <a href="{{ route('loginView') }}">ログインはこちら</a>
         </div>
-      </div>
+
       {{ csrf_field() }}
+      </form>
     </div>
-  </form>
+    </div>
+
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="{{ asset('js/register.js') }}" rel="stylesheet"></script>

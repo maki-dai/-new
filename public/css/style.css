@@ -59,17 +59,20 @@ li {
   padding-bottom: 20px;
 }
 
+/* 新規登録画面 */
+
 
 /* サイドバー */
 .sidebar {
   width: 180px;
-  height: 100vh;
+  /* height: 100vh; */
   background-color: #03AAD2;
   font-weight: bold;
 }
 
 .main-container {
   width: 100%;
+  /* height: 100vh; */
 }
 
 .sidebar p a {
@@ -92,9 +95,27 @@ li {
   color: #0000FF;
 }
 
+.day-sat a {
+  color: #0000FF;
+}
+
 .day-sun {
   color: #FF0000;
 }
+
+.day-sun a {
+  color: #FF0000;
+}
+
+.day-mon a,
+.day-tue a,
+.day-wed a,
+.day-thu a,
+.day-fri a {
+  color: black;
+}
+
+
 
 .past-day {
   background: #EEE;
@@ -367,6 +388,15 @@ li {
 
 .subject_inner {
   display: none;
+}
+
+.subject_inner form {
+  display: flex;
+}
+
+.select_subject {
+  margin-right: 5px;
+  margin-top: auto;
 }
 
 /* ユーザー詳細 */
