@@ -97,12 +97,14 @@
           </div>
           <div class="search-condition-part selected_engineer">
             <label>選択科目</label>
+            <div style="display:flex;">
             @foreach($subjects as $subject)
-            <div class="select-subjects">
-              <input type="checkbox" name="subjects[]" value="{{ $subject->id }}" form="userSearchRequest">
+            <div class="select-subjects" style="margin-right:10px">
               <label>{{ $subject->subject }}</label>
+              <input type="checkbox" name="subjects[]" value="{{ $subject->id }}" form="userSearchRequest">
            </div>
            @endforeach
+            </div>
             </div>
 
           </div>
