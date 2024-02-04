@@ -72,8 +72,7 @@ li {
 
 .main-container {
   width: 100%;
-  height: 100vh;
-  overflow: scroll;
+  /* height: 100vh; */
 }
 
 .sidebar p a {
@@ -96,20 +95,24 @@ li {
   color: #0000FF;
 }
 
+.day-sat a {
+  color: #0000FF;
+}
+
 .day-sun {
   color: #FF0000;
 }
 
+.day-sun a {
+  color: #FF0000;
+}
 
 .day-mon a,
 .day-tue a,
 .day-wed a,
 .day-thu a,
-.day-fri a,
-.day-sat a,
-.day-sun a,
-.past-day a {
-  color: #03AAD2;
+.day-fri a {
+  color: black;
 }
 
 
@@ -130,23 +133,20 @@ li {
 }
 
 .adjust-table {
-  /* width: 70% !important; */
+  width: 70% !important;
 }
 
-/* .adjust-table td {
+.adjust-table td {
   padding: 0 !important;
-} */
-
-
+}
 
 .adjust-area p {
   justify-content: space-around;
-  font-size: 12px;
 }
 
-/* .adjust-table-btn {
+.adjust-table-btn {
   width: 70%;
-} */
+}
 
 /* モーダル */
 .modal {
@@ -636,10 +636,4 @@ li {
   padding: 0 5px;
   border: none;
   background-color: transparent;
-}
-
-/* カレンダー */
-.day {
-  margin-bottom: 0 !important;
-  font-size: 14px;
 }

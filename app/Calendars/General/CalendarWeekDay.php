@@ -49,8 +49,7 @@ class CalendarWeekDay{
      }
 
      $html = [];
-     $html [] ='<p style="margin:10px;">';
-     $html[] = '<select name="getPart[]" class="border-primary" style="width:100%; border-radius:5px;font-size:12px;" form="reserveParts">';
+     $html[] = '<select name="getPart[]" class="border-primary" style="width:100%; border-radius:5px;" form="reserveParts">';
      $html[] = '<option value="" selected></option>';
      if($one_part_frame == "0"){
        $html[] = '<option value="1" disabled>リモ1部(残り0枠)</option>';
@@ -68,8 +67,6 @@ class CalendarWeekDay{
        $html[] = '<option value="3">リモ3部(残り'.$three_part_frame.'枠)</option>';
      }
      $html[] = '</select>';
-     $html[] = '</p>';
-
      return implode('', $html);
    }
 
